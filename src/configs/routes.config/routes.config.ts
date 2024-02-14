@@ -11,4 +11,12 @@ export const protectedRoutes = [
         component: lazy(() => import('@/views/pages/myevents/MyEvents')),
         authority: [],
     },
+    {
+        key: 'event',
+        path: '/event/:id',
+        component: lazy(
+            () => import('@/views/pages/myevents/event-details/EventDetails')
+        ),
+        authority: [],
+    },
 ]
