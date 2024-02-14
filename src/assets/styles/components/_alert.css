@@ -1,2 +1,19 @@
 .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.auth-wrapper .amplify-button .amplify-field-group__control .amplify-button--primary .amplify-button--fullwidth{
+  background-color:pink !important ;
+}
+
+.auth-wrapper .amplify-button--link{
+    color: grey !important;
+}
+.amplify-button--primary{
+    background-color: red !important;
 }

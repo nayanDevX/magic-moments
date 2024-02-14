@@ -26,7 +26,6 @@ const Layout = () => {
     const layoutType = useAppSelector((state) => state.theme.layout.type)
 
     const { authenticated } = useAuth()
-
     useDirection()
 
     useLocale()
