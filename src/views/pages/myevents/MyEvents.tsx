@@ -1,7 +1,13 @@
-import { Button } from '@/components/ui'
+import { Button, Dialog } from '@/components/ui'
 import EventCards from './components/EventCards'
-
+import { useAppDispatch } from '@/store'
+import {
+    setCreateEventDialogue,
+    setJoinEventDialogue,
+} from '@/store/slices/data/dialogueHandlingSlice'
+import FormDialogue from './components/FormDialogue'
 const MyEvents = () => {
+    const dispatch = useAppDispatch()
     return (
         <div>
             <div className="flex justify-between items-center">
@@ -12,14 +18,21 @@ const MyEvents = () => {
                         size="sm"
                         variant="twoTone"
                         className="text-sm"
+                        onClick={() => {
+                            dispatch(setJoinEventDialogue(true))
+                        }}
                     >
                         Join Events
                     </Button>
+
                     <Button
                         type="submit"
                         size="sm"
                         variant="twoTone"
                         className="text-sm"
+                        onClick={() => {
+                            dispatch(setCreateEventDialogue(true))
+                        }}
                     >
                         Create Events
                     </Button>
@@ -27,6 +40,7 @@ const MyEvents = () => {
             </div>
             <hr className="my-4" />
             <EventCards />
+            <FormDialogue />
         </div>
     )
 }

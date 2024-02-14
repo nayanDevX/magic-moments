@@ -3,7 +3,7 @@ import Avatar from '@/components/ui/Avatar'
 
 const HeaderFooterBorder = () => {
     const cardFooter = (
-        <div>
+        <div className="">
             <hr className="text-black" />
 
             <div className="flex items-center pt-1">
@@ -15,7 +15,6 @@ const HeaderFooterBorder = () => {
                 />
                 <span>
                     <h6 className="text-sm">Brijesh</h6>
-                    {/* <span className="text-xs">Sep 23, 2021</span> */}
                 </span>
             </div>
         </div>
@@ -35,22 +34,18 @@ const HeaderFooterBorder = () => {
         <div className="max-w-xs">
             <Card
                 clickable
-                className="hover:shadow-lg transition duration-150 ease-in-out dark:border dark:border-gray-600 dark:border-solid"
+                className=" hover:shadow-lg transition duration-150 ease-in-out dark:border dark:border-gray-600 dark:border-solid"
                 header={cardHeader}
                 footer={cardFooter}
                 headerClass="p-0"
+                footerClass="pt-0"
                 footerBorder={false}
                 headerBorder={false}
             >
                 <span className="text-emerald-600 font-semibold">
                     {dateString}
                 </span>
-                <h4 className="font-bold my-1">Music Concert</h4>
-                {/* <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the
-                    industry&apos;s.
-                </p> */}
+                <h4 className="font-bold mt-1">Music Concert</h4>
             </Card>
         </div>
     )
