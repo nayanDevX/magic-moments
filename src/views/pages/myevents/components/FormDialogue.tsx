@@ -16,7 +16,8 @@ const FormDialogue = () => {
     return (
         <div>
             <Dialog
-                height={'230px'}
+                contentClassName="pb-1"
+                height={'h-full'}
                 onClose={() => {
                     isCreateEventDialogue
                         ? dispatch(setCreateEventDialogue(false))
