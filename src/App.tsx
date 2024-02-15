@@ -15,7 +15,20 @@ import '@aws-amplify/ui-react/styles.css'
 
 const environment = process.env.NODE_ENV
 
-Amplify.configure(config)
+Amplify.configure(config, {
+    API: {
+        REST: {
+            headers: async () => {
+                const accessToken = (
+                    await fetchAuthSession()
+                ).tokens?.idToken?.toString()
+                return {
+                    Authorization: accessToken ?? '',
+                }
+            },
+        },
+    },
+})
 
 /**
  * Set enableMock(Default false) to true at configs/app.config.js
@@ -39,7 +52,7 @@ function App() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <h1 className=" text-xl pb-4 font-semibold text-center w-full text-blue-600">
+                                    <h1 className=" text- pb-4 font-semibold text-center w-full text-blue-600">
                                         MyMoments
                                     </h1>
                                 </div>

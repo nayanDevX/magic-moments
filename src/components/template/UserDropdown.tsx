@@ -44,7 +44,9 @@ const _UserDropdown = ({ className }: CommonProps) => {
                             <div className="font-bold text-gray-900 dark:text-gray-100">
                                 User01
                             </div>
-                            <div className="text-xs">user01@mail.com</div>
+                            <div className="text-xs">
+                                {user.signInDetails?.loginId}
+                            </div>
                         </div>
                     </div>
                 </Dropdown.Item>
