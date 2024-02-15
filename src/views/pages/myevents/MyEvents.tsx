@@ -1,5 +1,5 @@
 import { Button, Dialog } from '@/components/ui'
-import EventCards from './components/EventCards'
+import EventCards from './components/EventCardGrid'
 import { useAppDispatch } from '@/store'
 import {
     setCreateEventDialogue,
@@ -16,7 +16,7 @@ const MyEvents = () => {
                     <Button
                         type="submit"
                         size="sm"
-                        variant="twoTone"
+                        variant="solid"
                         className="text-sm"
                         onClick={() => {
                             dispatch(setJoinEventDialogue(true))
@@ -28,7 +28,7 @@ const MyEvents = () => {
                     <Button
                         type="submit"
                         size="sm"
-                        variant="twoTone"
+                        variant="solid"
                         className="text-sm"
                         onClick={() => {
                             dispatch(setCreateEventDialogue(true))

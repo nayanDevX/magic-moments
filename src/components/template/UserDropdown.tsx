@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi'
 import type { CommonProps } from '@/@types/common'
 import { useAuthenticator } from '@aws-amplify/ui-react'
+import { HiUser } from 'react-icons/hi'
 
 type DropdownList = {
     label: string
@@ -77,6 +78,12 @@ const _UserDropdown = ({ className }: CommonProps) => {
                         <HiOutlineLogout />
                     </span>
                     <span>Sign Out</span>
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="Profile" className="gap-2">
+                    <span className="text-xl opacity-50">
+                        <HiUser />
+                    </span>
+                    <span>Profile</span>
                 </Dropdown.Item>
             </Dropdown>
         </div>

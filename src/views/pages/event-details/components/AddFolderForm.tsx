@@ -4,27 +4,26 @@ import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { setJoinEventDialogue } from '@/store/slices/data/dialogueHandlingSlice'
+import {
+    setAddFolderDialogue,
+    setJoinEventDialogue,
+} from '@/store/slices/data/dialogueHandlingSlice'
 import { useAppDispatch } from '@/store'
 
 const validationSchema = Yup.object().shape({
-    eventId: Yup.string()
-        .min(3, 'Too Short!')
-        .max(12, 'Too Long!')
-        .required('Event Name Required'),
-    password: Yup.string()
-        .min(8, 'Length must be greater than 8')
-        .required('Password Required'),
+    folderName: Yup.string()
+        .min(2, 'Too Short!')
+        .max(20, 'Too Long!')
+        .required('Add folder required!'),
 })
 
-const JoinEventForm = () => {
+const AddFolderForm = () => {
     const dispatch = useAppDispatch()
     return (
         <div className="mt-6">
             <Formik
                 initialValues={{
-                    eventId: '',
-                    password: '',
+                    folderName: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { resetForm, setSubmitting }) => {}}
@@ -33,28 +32,17 @@ const JoinEventForm = () => {
                     <Form>
                         <FormContainer className="" size="sm">
                             <FormItem
-                                label="Event ID"
-                                invalid={errors.eventId && touched.eventId}
-                                errorMessage={errors.eventId}
+                                label="Folder Name"
+                                invalid={
+                                    errors.folderName && touched.folderName
+                                }
+                                errorMessage={errors.folderName}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="eventId"
-                                    placeholder="Event ID"
-                                    component={Input}
-                                />
-                            </FormItem>
-                            <FormItem
-                                label="Password"
-                                invalid={errors.password && touched.password}
-                                errorMessage={errors.password}
-                            >
-                                <Field
-                                    type="text"
-                                    autoComplete="off"
-                                    name="password"
-                                    placeholder="Enter password"
+                                    name="folderName"
+                                    placeholder="Enter folder name "
                                     component={Input}
                                 />
                             </FormItem>
@@ -64,7 +52,7 @@ const JoinEventForm = () => {
                                     <Button
                                         onClick={() => {
                                             dispatch(
-                                                setJoinEventDialogue(false)
+                                                setAddFolderDialogue(false)
                                             )
                                         }}
                                         className="ltr:mr-2 rtl:ml-2"
@@ -84,4 +72,4 @@ const JoinEventForm = () => {
     )
 }
 
-export default JoinEventForm
+export default AddFolderForm

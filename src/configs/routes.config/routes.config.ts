@@ -12,10 +12,26 @@ export const protectedRoutes = [
         authority: [],
     },
     {
-        key: 'event',
-        path: '/event/:id',
+        key: 'allpictures',
+        path: '/event/allpictures/:id',
         component: lazy(
-            () => import('@/views/pages/myevents/event-details/EventDetails')
+            () => import('@/views/pages/event-details/EventDetails')
+        ),
+        authority: [],
+    },
+    {
+        key: 'mypictures',
+        path: '/event/mypictures/:id',
+        component: lazy(
+            () => import('@/views/pages/event-details/EventDetails')
+        ),
+        authority: [],
+    },
+    {
+        key: 'users',
+        path: '/event/users/:id',
+        component: lazy(
+            () => import('@/views/pages/event-details/EventDetails')
         ),
         authority: [],
     },
