@@ -1,5 +1,8 @@
 import { Tooltip } from '@/components/ui'
 import Card from '@/components/ui/Card'
+import { getUrl } from '@/utils/getUrl'
+import { current } from '@reduxjs/toolkit'
+import { useNavigate } from 'react-router-dom'
 
 const Folder = ({ folderName }: { folderName: string }) => {
     const fullName = folderName
@@ -23,10 +26,18 @@ const Folder = ({ folderName }: { folderName: string }) => {
             />
         </div>
     )
-
+    const { currentUrl } = getUrl()
+    const navigate = useNavigate()
     return (
         <div className="max-w-xs mt-4">
             <Card
+                onDoubleClick={() => {
+                    navigate(
+                        `${currentUrl}/${folderName
+                            .replace(/\s+/g, '-')
+                            .toLowerCase()}`
+                    )
+                }}
                 clickable
                 className="hover:shadow-lg border-0 transition duration-150 ease-in-out "
                 header={cardHeader}

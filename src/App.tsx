@@ -22,18 +22,21 @@ Amplify.configure(config, {
                 const accessToken = (
                     await fetchAuthSession()
                 ).tokens?.idToken?.toString()
+                console.log(accessToken)
                 return {
                     Authorization: accessToken ?? '',
                 }
             },
         },
     },
+    // Storage: {
+    //     S3: {
+    //         defaultAccessLevel: 'private',
+    //         isObjectLockEnabled: true,
+    //     },
+    // },
 })
 
-/**
- * Set enableMock(Default false) to true at configs/app.config.js
- * If you wish to enable mock api
- */
 if (environment !== 'production' && appConfig.enableMock) {
     mockServer({ environment })
 }

@@ -9,37 +9,53 @@ import * as Yup from 'yup'
 import type { MouseEvent } from 'react'
 import { setCreateEventDialogue } from '@/store/slices/data/dialogueHandlingSlice'
 import { useAppDispatch } from '@/store'
+import { createEvent } from '@/store/slices/data/createEvent'
+import { toastNotification } from '@/utils/helper-components/toastNotification'
+import { fetchAllEvents } from '@/store/slices/data/fetchAllEvents'
+import { getUrl } from '@/utils/getUrl'
 
 const validationSchema = Yup.object().shape({
-    eventName: Yup.string()
+    name: Yup.string()
         .min(3, 'Too Short!')
         .max(12, 'Too Long!')
         .required('Event Name Required'),
 })
 
 const CreateEventForm = () => {
+    const Eid = getUrl(2)
     const dispatch = useAppDispatch()
     return (
         <div className="mt-6">
             <Formik
                 initialValues={{
-                    eventName: '',
+                    name: '',
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values, { resetForm, setSubmitting }) => {}}
+                onSubmit={(values, { resetForm, setSubmitting }) => {
+                    setSubmitting(true)
+                    dispatch(setCreateEventDialogue(false))
+                    dispatch(createEvent(values)).then((res: any) => {
+                        toastNotification(
+                            res,
+                            'Event Created Successfully',
+                            'Event Creation Failed'
+                        )
+                        dispatch(fetchAllEvents())
+                    })
+                }}
             >
                 {({ touched, errors, resetForm }) => (
                     <Form>
                         <FormContainer size="sm">
                             <FormItem
                                 label="Event Name"
-                                invalid={errors.eventName && touched.eventName}
-                                errorMessage={errors.eventName}
+                                invalid={errors.name && touched.name}
+                                errorMessage={errors.name}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="eventName"
+                                    name="name"
                                     placeholder="Event Name"
                                     component={Input}
                                 />

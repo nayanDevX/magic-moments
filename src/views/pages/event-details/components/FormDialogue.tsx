@@ -2,14 +2,13 @@ import { Dialog } from '@/components/ui'
 import Button from '@/components/ui/Button'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setAddFolderDialogue } from '@/store/slices/data/dialogueHandlingSlice'
-import AddFolderForm from './AddFolderForm'
+import AddFolderForm from './NewFolderForm'
 
 const FormDialogue = () => {
     const dispatch = useAppDispatch()
     const { isAddFolderDialogue } = useAppSelector(
         (state) => state.data.dialogue
     )
-    console.log(isAddFolderDialogue)
 
     return (
         <div>
@@ -23,7 +22,7 @@ const FormDialogue = () => {
             >
                 {isAddFolderDialogue && (
                     <div>
-                        <h5>Add Folder</h5>
+                        <h5>New Folder</h5>
                         <AddFolderForm />
                     </div>
                 )}

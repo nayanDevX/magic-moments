@@ -13,26 +13,36 @@ export const protectedRoutes = [
     },
     {
         key: 'allpictures',
-        path: '/event/allpictures/:id',
+        path: '/event/:eid/allpictures/',
         component: lazy(
-            () => import('@/views/pages/event-details/EventDetails')
+            () => import('@/views/pages/event-details/AllPictures')
         ),
         authority: [],
     },
     {
         key: 'mypictures',
-        path: '/event/mypictures/:id',
-        component: lazy(
-            () => import('@/views/pages/event-details/EventDetails')
-        ),
+        path: '/event/:eid/mypictures/',
+        component: lazy(() => import('@/views/pages/event-details/MyPictures')),
         authority: [],
     },
     {
         key: 'users',
-        path: '/event/users/:id',
+        path: '/event/:eid/users/',
+        component: lazy(() => import('@/views/pages/event-details/Users')),
+        authority: [],
+    },
+    {
+        key: 'folderContent',
+        path: '/event/:id/:type/:folder',
         component: lazy(
-            () => import('@/views/pages/event-details/EventDetails')
+            () => import('@/views/pages/event-details/components/FolderContent')
         ),
+        authority: [],
+    },
+    {
+        key: 'profile',
+        path: '/profile',
+        component: lazy(() => import('@/views/pages/profile/Profile')),
         authority: [],
     },
 ]

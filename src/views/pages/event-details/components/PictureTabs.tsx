@@ -1,48 +1,59 @@
 import { Button } from '@/components/ui'
 import Tabs from '@/components/ui/Tabs'
-import { useAppDispatch } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { setAddFolderDialogue } from '@/store/slices/data/dialogueHandlingSlice'
+import { fetchEventById } from '@/store/slices/data/fetchEventById'
 import { getUrl } from '@/utils/getUrl'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const { TabNav, TabList } = Tabs
 
 const PictureTabs = () => {
     const navigate = useNavigate()
-    // const [selectedTab, setSelectedTab] = useState('allpictures')
     const dispatch = useAppDispatch()
     const { splittedUrl } = getUrl()
-    console.log(splittedUrl[2])
+    const type = getUrl(3)
+    const Eid = getUrl(2)
+
+    useEffect(() => {
+        dispatch(fetchEventById({ Eid: Eid }))
+    }, [])
+    const eventTitle = useAppSelector((state) => state.data.event.event?.name)
+    console.log(eventTitle)
+
+    const shiowButton = type === 'users' ? false : true
 
     return (
         <div>
+            <div className="flex justify-between items-center">
+                <h4 className="mr-auto">{eventTitle}</h4>
+            </div>
             <Tabs
                 variant="pill"
                 onChange={(value) => {
-                    console.log(value)
-
-                    // setSelectedTab(value)
-                    navigate(`/event/${value}/1`)
+                    navigate(`/event/${Eid}/${value}`)
                 }}
                 defaultValue="allpictures"
-                value={splittedUrl[2]}
+                value={splittedUrl[3]}
                 className="mt-4"
             >
                 <TabList>
                     <TabNav value="allpictures">All Pictures</TabNav>
                     <TabNav value="mypictures">My Pictures</TabNav>
                     <TabNav value="users">Users</TabNav>
-                    <Button
-                        size="sm"
-                        variant="solid"
-                        className="text-sm ml-auto"
-                        onClick={() => {
-                            dispatch(setAddFolderDialogue(true))
-                        }}
-                    >
-                        Add Folder
-                    </Button>
+                    {shiowButton && (
+                        <Button
+                            size="sm"
+                            variant="solid"
+                            className="text-sm ml-auto"
+                            onClick={() => {
+                                dispatch(setAddFolderDialogue(true))
+                            }}
+                        >
+                            New Folder
+                        </Button>
+                    )}
                 </TabList>
             </Tabs>
         </div>

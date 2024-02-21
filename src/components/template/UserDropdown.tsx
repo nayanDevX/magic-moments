@@ -2,7 +2,7 @@ import Avatar from '@/components/ui/Avatar'
 import Dropdown from '@/components/ui/Dropdown'
 import withHeaderItem from '@/utils/hoc/withHeaderItem'
 import useAuth from '@/utils/hooks/useAuth'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi'
 import type { CommonProps } from '@/@types/common'
@@ -29,7 +29,7 @@ const _UserDropdown = ({ className }: CommonProps) => {
             </div>
         </div>
     )
-
+    const navigate = useNavigate()
     return (
         <div>
             <Dropdown
@@ -72,6 +72,18 @@ const _UserDropdown = ({ className }: CommonProps) => {
                 ))}
                 {/* <Dropdown.Item variant="divider" /> */}
                 <Dropdown.Item
+                    eventKey="Profile"
+                    className="gap-2"
+                    onClick={() => {
+                        navigate('/profile')
+                    }}
+                >
+                    <span className="text-xl opacity-50">
+                        <HiUser />
+                    </span>
+                    <span>Profile</span>
+                </Dropdown.Item>
+                <Dropdown.Item
                     eventKey="Sign Out"
                     className="gap-2"
                     onClick={signOut}
@@ -80,12 +92,6 @@ const _UserDropdown = ({ className }: CommonProps) => {
                         <HiOutlineLogout />
                     </span>
                     <span>Sign Out</span>
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="Profile" className="gap-2">
-                    <span className="text-xl opacity-50">
-                        <HiUser />
-                    </span>
-                    <span>Profile</span>
                 </Dropdown.Item>
             </Dropdown>
         </div>

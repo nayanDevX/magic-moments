@@ -9,9 +9,6 @@ const EventDetails = () => {
     const dispatch = useAppDispatch()
     return (
         <div>
-            <div className="flex justify-between items-center">
-                <h4 className="mr-auto">Music Event</h4>
-            </div>
             <PictureTabs />
             <FolderGrid />
             <FormDialogue />

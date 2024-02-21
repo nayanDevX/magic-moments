@@ -11,12 +11,23 @@ const awsmobile = {
         passwordPolicyMinLength: 8,
         passwordPolicyCharacters: [],
     },
-    Storage: {
-        S3: {
-            bucket: 'mm-dev-media-bucket',
+    aws_cloud_logic_custom: [
+        {
+            name: 'restapi',
+            endpoint:
+                'https://u1gwfbkh07.execute-api.ap-south-1.amazonaws.com/dev',
             region: 'ap-south-1',
         },
-    },
+    ],
+    // Storage: {
+    //     S3: {
+    //         bucket: 'mm-dev-media-bucket',
+    //         region: 'ap-south-1',
+    //     },
+    // },
+    // aws_cognito_identity_pool_id: '',
+    aws_user_files_s3_bucket: 'mm-dev-media-bucket',
+    aws_user_files_s3_bucket_region: 'ap-south-1',
 }
 
 export default awsmobile

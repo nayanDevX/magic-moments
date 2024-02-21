@@ -2,16 +2,24 @@ import Card from '@/components/ui/Card'
 import Avatar from '@/components/ui/Avatar'
 import { MdContentCopy } from 'react-icons/md'
 import { Tooltip } from '@/components/ui'
-import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdOutlineCheckCircleOutline } from 'react-icons/md'
+import { title } from 'process'
+import { formatDate } from '@/utils/formatDate'
 
-const EventCard = () => {
+interface EventCard {
+    event: any
+}
+const EventCard = ({ event }: EventCard) => {
     const [showCopyIcon, setShowCopyIcon] = useState(true)
-    const handleCopyClick = () => {
-        console.log('clicked')
+    const [enableCopy, setEnableCopy] = useState(false)
 
+    useEffect(() => {
+        event.role === 'ADMIN' ? setEnableCopy(true) : setEnableCopy(false)
+    }, [event.role])
+
+    const handleCopyClick = () => {
         setShowCopyIcon(false)
         setTimeout(() => {
             setShowCopyIcon(true)
@@ -31,35 +39,34 @@ const EventCard = () => {
                     src="/img/avatars/thumb-4.jpg"
                 />
                 <span className="flex items-center w-full">
-                    <h6 className="text-sm">Brijesh</h6>
-                    <span className="ml-auto">
-                        {showCopyIcon === true ? (
-                            <Tooltip title="Copy Link">
-                                <MdContentCopy
-                                    onClick={handleCopyClick}
-                                    size={'1.3em'}
-                                />
-                            </Tooltip>
-                        ) : (
-                            <MdOutlineCheckCircleOutline size={'1.5em'} />
-                        )}
-                    </span>
+                    <h6 className="text-sm">{event.event.createdBy?.name}</h6>
+                    {enableCopy === true && (
+                        <span className="ml-auto">
+                            {showCopyIcon === true ? (
+                                <Tooltip title="Copy Link">
+                                    <MdContentCopy
+                                        onClick={handleCopyClick}
+                                        size={'1.3em'}
+                                    />
+                                </Tooltip>
+                            ) : (
+                                <MdOutlineCheckCircleOutline size={'1.5em'} />
+                            )}
+                        </span>
+                    )}
                 </span>
             </div>
         </div>
     )
 
     const cardHeader = (
-        <Link to="/event/allpictures/1">
+        <Link to={`/event/${event.event.id}/allpictures`}>
             <div className="rounded-tl-lg rounded-tr-lg overflow-hidden">
                 <img src="../src/assets/event-photo.jpeg" alt="card header" />
             </div>
         </Link>
     )
-    const date = new Date()
-    const dateString = `${
-        date.getMonth() + 1
-    }/${date.getDate()}/${date.getFullYear()}`
+    const date = formatDate(event.event.createdAt)
 
     return (
         <div className="max-w-xs">
@@ -73,10 +80,8 @@ const EventCard = () => {
                 footerBorder={false}
                 headerBorder={false}
             >
-                <span className="text-emerald-600 font-semibold">
-                    {dateString}
-                </span>
-                <h4 className="font-bold mt-1">Music Concert</h4>
+                <span className="text-emerald-600 font-semibold">{date}</span>
+                <h4 className="font-bold mt-1">{event.event.name}</h4>
             </Card>
         </div>
     )

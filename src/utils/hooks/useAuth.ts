@@ -11,6 +11,9 @@ import { REDIRECT_URL_KEY } from '@/constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
 import type { SignInCredential, SignUpCredential } from '@/@types/auth'
+import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useEffect } from 'react'
+import { fetchUserAttributes } from 'aws-amplify/auth'
 
 type Status = 'success' | 'failed'
 
@@ -21,7 +24,19 @@ function useAuth() {
 
     const query = useQuery()
 
-    const { token, signedIn } = useAppSelector((state) => state.auth.session)
+    const { user, signOut: amplifySO } = useAuthenticator((context) => [
+        context.user,
+    ])
+    useEffect(() => {
+        if (!!user) {
+            fetchUserAttributes().then((att: any) => {
+                dispatch(signInSuccess(''))
+                console.log(att)
+
+                // dispatch(setUser(att))
+            })
+        }
+    }, [!!user])
 
     const signIn = async (
         values: SignInCredential
